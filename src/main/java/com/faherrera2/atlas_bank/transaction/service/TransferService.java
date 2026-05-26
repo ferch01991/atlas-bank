@@ -1,10 +1,10 @@
-package com.faherrera2.atlas_bank.service;
+package com.faherrera2.atlas_bank.transaction.service;
 
-import com.faherrera2.atlas_bank.model.Account;
-import com.faherrera2.atlas_bank.model.Transaction;
-import com.faherrera2.atlas_bank.repository.AccountRepository;
-import com.faherrera2.atlas_bank.repository.TransactionRepository;
-import com.faherrera2.atlas_bank.service.fee.FeeCalculator;
+import com.faherrera2.atlas_bank.account.model.Account;
+import com.faherrera2.atlas_bank.transaction.model.Transaction;
+import com.faherrera2.atlas_bank.account.repository.AccountRepository;
+import com.faherrera2.atlas_bank.transaction.repository.TransactionRepository;
+import com.faherrera2.atlas_bank.transaction.service.fee.FeeCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

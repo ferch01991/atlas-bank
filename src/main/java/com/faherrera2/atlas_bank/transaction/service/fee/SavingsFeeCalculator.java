@@ -1,4 +1,4 @@
-package com.faherrera2.atlas_bank.service.fee;
+package com.faherrera2.atlas_bank.transaction.service.fee;
 
 import org.springframework.stereotype.Component;
 

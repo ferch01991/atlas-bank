@@ -1,8 +1,7 @@
-package com.faherrera2.atlas_bank.service;
+package com.faherrera2.atlas_bank.account.service;
 
-import com.faherrera2.atlas_bank.model.Account;
-import com.faherrera2.atlas_bank.repository.AccountRepository;
-import com.faherrera2.atlas_bank.repository.TransactionRepository;
+import com.faherrera2.atlas_bank.account.model.Account;
+import com.faherrera2.atlas_bank.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
