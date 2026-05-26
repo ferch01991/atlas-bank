@@ -14,12 +14,13 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class TransferService {
+public class TransferService implements ITransferService{
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
     private final List<FeeCalculator> feeCalculators;
 
+    @Override
     @Transactional
     public Transaction execute(Long fromId, Long toId, BigDecimal amount) {
         // search accounts
