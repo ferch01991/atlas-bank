@@ -1,4 +1,4 @@
-package com.faherrera2.atlas_bank.model;
+package com.faherrera2.atlas_bank.account.model;
 
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Entity;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.function.LongConsumer;
 
 @Entity
 @Data

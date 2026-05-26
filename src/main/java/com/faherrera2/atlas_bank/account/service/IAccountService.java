@@ -1,6 +1,6 @@
-package com.faherrera2.atlas_bank.service;
+package com.faherrera2.atlas_bank.account.service;
 
-import com.faherrera2.atlas_bank.model.Account;
+import com.faherrera2.atlas_bank.account.model.Account;
 
 import java.util.List;
 

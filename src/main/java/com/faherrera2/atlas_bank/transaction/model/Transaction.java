@@ -1,4 +1,4 @@
-package com.faherrera2.atlas_bank.model;
+package com.faherrera2.atlas_bank.transaction.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
