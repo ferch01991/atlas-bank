@@ -2,15 +2,12 @@ package com.faherrera2.atlas_bank.controller;
 
 import com.faherrera2.atlas_bank.model.Account;
 import com.faherrera2.atlas_bank.model.Transaction;
-import com.faherrera2.atlas_bank.service.AccountService;
-import com.faherrera2.atlas_bank.service.TransactionQueryService;
-import com.faherrera2.atlas_bank.service.TransferService;
+import com.faherrera2.atlas_bank.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.invoke.LambdaMetafactory;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,9 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService accountService;
-    private final TransferService transferService;
-    private final TransactionQueryService transactionQueryService;
+    private final IAccountService accountService;
+    private final ITransferService transferService;
+    private final ITransactionQueryService transactionQueryService;
 
     @PostMapping
     public ResponseEntity<Account> create(@RequestBody Account account) {
@@ -34,8 +31,8 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> findById(@PathVariable Long Id){
-        return ResponseEntity.ok(accountService.findById(Id));
+    public ResponseEntity<Account> findById(@PathVariable Long id){
+        return ResponseEntity.ok(accountService.findById(id));
     }
 
     @PostMapping("/transfer")
