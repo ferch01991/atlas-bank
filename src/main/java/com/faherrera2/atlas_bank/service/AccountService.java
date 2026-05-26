@@ -12,7 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
-    private final TransactionRepository transactionRepository;
 
     public Account create(Account account) {
         return accountRepository.save(account);

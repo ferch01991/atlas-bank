@@ -4,11 +4,13 @@ import com.faherrera2.atlas_bank.model.Account;
 import com.faherrera2.atlas_bank.model.Transaction;
 import com.faherrera2.atlas_bank.repository.AccountRepository;
 import com.faherrera2.atlas_bank.repository.TransactionRepository;
+import com.faherrera2.atlas_bank.service.fee.FeeCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +18,7 @@ public class TransferService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
+    private final List<FeeCalculator> feeCalculators;
 
     @Transactional
     public Transaction execute(Long fromId, Long toId, BigDecimal amount) {
@@ -37,14 +40,11 @@ public class TransferService {
         }
 
         // Estimate fees
-        BigDecimal fee;
-        if ("SAVINGS".equals(accountFrom.getType())){
-            fee = amount.multiply(new BigDecimal("0.01"));
-        } else if ("CHECKING".equals(accountFrom.getType())){
-            fee = amount.multiply(new BigDecimal("0.015"));
-        } else {
-            fee = BigDecimal.ZERO;
-        }
+        BigDecimal fee = feeCalculators.stream()
+                .filter(fc -> fc.supports(accountFrom.getType()))
+                .findFirst()
+                .orElseThrow(() ->new RuntimeException("There isn't calculator for type : " + accountFrom.getType()))
+                .calculate(amount);
 
         // Update balances
         accountFrom.setBalance(accountFrom.getBalance().subtract(amount).subtract(fee));
