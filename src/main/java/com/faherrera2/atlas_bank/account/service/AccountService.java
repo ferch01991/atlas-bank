@@ -1,5 +1,6 @@
 package com.faherrera2.atlas_bank.account.service;
 
+import com.faherrera2.atlas_bank.account.exception.AccountNotFoundException;
 import com.faherrera2.atlas_bank.account.model.Account;
 import com.faherrera2.atlas_bank.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AccountService implements IAccountService{
     @Override
     public Account findById(Long Id) {
         return accountRepository.findById(Id).orElseThrow(
-                () -> new RuntimeException("Account not found")
+                () -> new AccountNotFoundException(Id)
         );
     }
 }
