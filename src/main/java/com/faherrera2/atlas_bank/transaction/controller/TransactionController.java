@@ -1,5 +1,6 @@
 package com.faherrera2.atlas_bank.transaction.controller;
 
+import com.faherrera2.atlas_bank.transaction.dtos.TransactionMapper;
 import com.faherrera2.atlas_bank.transaction.dtos.TransactionResponse;
 import com.faherrera2.atlas_bank.transaction.dtos.TransferRequest;
 import com.faherrera2.atlas_bank.transaction.model.Transaction;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -19,15 +19,18 @@ public class TransactionController {
 
     private final ITransferService transferService;
     private final ITransactionQueryService transactionQueryService;
+    private final TransactionMapper transactionMapper;
 
     @PostMapping("/transfer")
     public ResponseEntity<TransactionResponse> transfer(@RequestBody TransferRequest request){
+        Transaction transaction = transferService.execute(
+                request.getFromId(),
+                request.getToId(),
+                request.getAmount()
+        );
+
         return ResponseEntity.ok(
-                toResponse(transferService.execute(
-                        request.getFromId(),
-                        request.getToId(),
-                        request.getAmount()
-                ))
+                transactionMapper.toResponse(transaction)
         );
     }
 
@@ -35,23 +38,8 @@ public class TransactionController {
     public ResponseEntity<List<TransactionResponse>> getTransactions(@PathVariable Long Id){
         List<TransactionResponse> response = transactionQueryService.getByAccountId(Id)
                 .stream()
-                .map(this::toResponse)
+                .map(transactionMapper::toResponse)
                 .toList();
         return ResponseEntity.ok(response);
-    }
-
-    public TransactionResponse toResponse(Transaction request){
-        TransactionResponse response = new TransactionResponse();
-        response.setId(request.getId());
-        response.setType(request.getType());
-        response.setSourceAccountId(request.getSourceAccountId());
-        response.setTargetAccountId(request.getTargetAccountId());
-        response.setAmount(request.getAmount());
-        response.setFee(request.getFee());
-        response.setStatus(request.getStatus());
-        response.setCreatedAt(request.getCreatedAt());
-
-        return response;
-
     }
 }
