@@ -6,6 +6,7 @@ import com.faherrera2.atlas_bank.transaction.dtos.TransferRequest;
 import com.faherrera2.atlas_bank.transaction.model.Transaction;
 import com.faherrera2.atlas_bank.transaction.service.ITransactionQueryService;
 import com.faherrera2.atlas_bank.transaction.service.ITransferService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class TransactionController {
     private final TransactionMapper transactionMapper;
 
     @PostMapping("/transfer")
-    public ResponseEntity<TransactionResponse> transfer(@RequestBody TransferRequest request){
+    public ResponseEntity<TransactionResponse> transfer(@Valid @RequestBody TransferRequest request){
         Transaction transaction = transferService.execute(
                 request.getFromId(),
                 request.getToId(),

@@ -5,6 +5,7 @@ import com.faherrera2.atlas_bank.account.dtos.AccountResponse;
 import com.faherrera2.atlas_bank.account.dtos.CreateAccountRequest;
 import com.faherrera2.atlas_bank.account.model.Account;
 import com.faherrera2.atlas_bank.account.service.IAccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AccountController {
     private final AccountMapper accountMapper;
 
     @PostMapping
-    public ResponseEntity<AccountResponse> create(@RequestBody CreateAccountRequest request) {
+    public ResponseEntity<AccountResponse> create(@Valid @RequestBody CreateAccountRequest request) {
         Account account = accountMapper.toEntity(request);
 
         Account accountSaved = accountService.create(account);
